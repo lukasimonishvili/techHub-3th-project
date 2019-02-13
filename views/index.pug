@@ -12,7 +12,7 @@ html(lang="en")
                 .navigation-item#singInNav Sing in
                 .navigation-item.navigation-border#physicalRegNav Registration for Physical person
                 .navigation-item#companyRegNav Registration for Company
-            form.sing-in-wrap#singInBox
+            form.sing-in-wrap#singInBox(style=locals.display[0])
                 h2.form-heading Please sign in
                 .sing-in-inp-box
                     input.sing-in-inp(type="text" name="email" placeholder="Email address" required)
@@ -22,10 +22,12 @@ html(lang="en")
                     input(type="checkbox" name="remember" vlue="true") 
                 button.sing-in-button Sing in
                 p.footer © 2017-2019
-            form.reg-wrap#physicalPersReg(method="POST" action="/")
+            form.reg-wrap#physicalPersReg(method="POST" action="/" style=locals.display[1])
                 h2.form-heading Physical person registration
                 if locals.userErrors.length > 0
                     p.error= locals.userErrors[0]
+                if locals.persSuccess.length > 0
+                    p.success= locals.persSuccess[0]
                 .sing-in-inp-box
                     input.sing-in-inp(type="text" name="name" placeholder="Your name" required)
                     input.sing-in-inp(type="text" name="lastname" placeholder="Your lastname" required)
@@ -37,10 +39,12 @@ html(lang="en")
                     input(type="hidden" name="type" value="person")
                 button.sing-in-button registration
                 p.footer © 2017-2019
-            form.comp-wrap#compReg(method="POST" action="/")
+            form.comp-wrap#compReg(method="POST" action="/" style=locals.display[2])
                 h2.form-heading Company registration
                 if locals.companyErrors.length > 0
                     p.error= locals.companyErrors[0]
+                if locals.compSuccess.length > 0
+                    p.success= locals.compSuccess[0]
                 .sing-in-inp-box
                     input.sing-in-inp(type="text" name="name" placeholder="Your name" required)
                     input.sing-in-inp(type="text" name="lastname" placeholder="Your lastname" required)

@@ -79,7 +79,6 @@
     width: 100%;
 }
 .reg-wrap{
-    display: none;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
@@ -89,7 +88,6 @@
 }
 
 .comp-wrap{
-    display: none;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
@@ -100,6 +98,14 @@
 
 .error{
     color: red;
+    font-size: 12px;
+    position: absolute;
+    left: 150px;
+    top: 30px;
+}
+
+.success{
+    color: green;
     font-size: 12px;
     position: absolute;
     left: 150px;

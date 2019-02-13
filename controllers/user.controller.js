@@ -5,14 +5,25 @@ const saltRounds = 15;
 
 let userErrors = [];
 let companyErrors = [];
+let display = ["display:flex;", "display:none;", "display: none"]
+let persSuccess = [];
+let compSuccess = [];
 
 const mainPage = (req,res) => {
-    res.render("index", {userErrors: userErrors, companyErrors: companyErrors});
+    res.render("index", {
+        userErrors: userErrors, 
+        companyErrors: companyErrors, 
+        display: display, 
+        persSuccess: persSuccess, 
+        compSuccess: compSuccess
+    });
 }
 
 const accountRegistration= (req,res) => {
     switch(req.body.method){
         case "preg":
+            display = ["display:none;", "display:flex;", "display: none"]
+            persSuccess = []
             if(req.body.mobile.length !== 9){
                 userErrors.unshift("Enter correct mobile number");
                 return res.redirect("/");
@@ -46,6 +57,7 @@ const accountRegistration= (req,res) => {
                         const newUser = await cruds.createUser(userDetails);
                     });
                     userErrors = []
+                    persSuccess.unshift("Registration went Successfully");
                     res.redirect("/"); 
                 }else{
                     userErrors.unshift("User with same email already exists");
@@ -54,6 +66,8 @@ const accountRegistration= (req,res) => {
             }); 
             break;
         case "creg": 
+            display = ["display:none;", "display:none;", "display: flex"]
+            compSuccess = []
             if(req.body.mobile.length !== 9){
                 companyErrors.unshift("Enter correct mobile number");
                 return res.redirect("/");
@@ -98,7 +112,8 @@ const accountRegistration= (req,res) => {
                                         userDetails.password = hash;
                                         const newUser = await cruds.createUser(userDetails);
                                     });
-                                    companyErrors = []
+                                    companyErrors = [];
+                                    compSuccess.unshift("Registration went Successfully");
                                     res.redirect("/"); 
                                 }
                             });
