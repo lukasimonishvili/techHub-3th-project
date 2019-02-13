@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        title 3th-projec
+        link(href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet")
+        link(rel="stylesheet", href="./css/reset.css")
+        link(rel="stylesheet", href="./css/index.css")
+    body
+        .main__container
+            nav.navigation
+                .navigation-item#singInNav Sing in
+                .navigation-item.navigation-border#physicalRegNav Registration for Physical person
+                .navigation-item#companyRegNav Registration for Company
+            form.sing-in-wrap#singInBox
+                h2.form-heading Please sign in
+                .sing-in-inp-box
+                    input.sing-in-inp(type="text" name="email" placeholder="Email address" required)
+                    input.sing-in-inp(type="password" name="password" placeholder="Password" required)
+                    input(type="hidden" name="method" value="post")
+                label Remember me
+                    input(type="checkbox" name="remember" vlue="true") 
+                button.sing-in-button Sing in
+                p.footer © 2017-2019
+            form.reg-wrap#physicalPersReg(method="POST" action="/")
+                h2.form-heading Physical person registration
+                if locals.userErrors.length > 0
+                    p.error= locals.userErrors[0]
+                .sing-in-inp-box
+                    input.sing-in-inp(type="text" name="name" placeholder="Your name" required)
+                    input.sing-in-inp(type="text" name="lastname" placeholder="Your lastname" required)
+                    input.sing-in-inp(type="number" name="mobile" placeholder="mobile number" required)
+                    input.sing-in-inp(type="text" name="email" placeholder="Email address" required)
+                    input.sing-in-inp(type="password" name="password" placeholder="Password" required)
+                    input.sing-in-inp(type="password" name="repassword" placeholder="Confirm Password" required)
+                    input(type="hidden" name="method" value="preg")
+                    input(type="hidden" name="type" value="person")
+                button.sing-in-button registration
+                p.footer © 2017-2019
+            form.comp-wrap#compReg(method="POST" action="/")
+                h2.form-heading Company registration
+                if locals.companyErrors.length > 0
+                    p.error= locals.companyErrors[0]
+                .sing-in-inp-box
+                    input.sing-in-inp(type="text" name="name" placeholder="Your name" required)
+                    input.sing-in-inp(type="text" name="lastname" placeholder="Your lastname" required)
+                    input.sing-in-inp(type="number" name="mobile" placeholder="mobile number" required)
+                    input.sing-in-inp(type="text" name="email" placeholder="Email address" required)
+                    input.sing-in-inp(type="text" name="company" placeholder="company name" required)
+                    input.sing-in-inp(type="text" name="idcode" placeholder="Identification code" required)
+                    input.sing-in-inp(type="password" name="password" placeholder="Password" required)
+                    input.sing-in-inp(type="password" name="repassword" placeholder="Confirm Password" required)
+                    input(type="hidden" name="method" value="creg")
+                    input(type="hidden" name="type" value="company")
+                button.sing-in-button registration
+                p.footer © 2017-2019
+        script(src="./js/clicks.js")

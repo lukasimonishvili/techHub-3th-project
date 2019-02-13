@@ -1,0 +1,29 @@
+{
+  "name": "techhub-3th-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lukasimonishvili/techHub-3th-project.git"
+  },
+  "author": "lukaSimonishvili",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lukasimonishvili/techHub-3th-project/issues"
+  },
+  "homepage": "https://github.com/lukasimonishvili/techHub-3th-project#readme",
+  "dependencies": {
+    "bcrypt": "^3.0.4",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.4.0",
+    "mongoose": "^5.4.11",
+    "morgan": "^1.9.1",
+    "nodemon": "^1.18.10",
+    "pug": "^2.0.3"
+  }
+}
