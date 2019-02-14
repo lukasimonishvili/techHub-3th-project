@@ -2,8 +2,10 @@
 html(lang="en")
     head
         meta(charset="UTF-8")
-        title Document
+        title your shop
+        link(rel="SHORTCUT ICON", href="../img/title.png")
     body
         button#logOut log out
-    script(src="./js/logOut.js")
+        h1= locals.user.name + " " + locals.user.lastname
+    script(src="../js/logOut.js")
         

@@ -20,14 +20,14 @@ app.set("views", "./views");
 app.get("/", mainPage);
 app.post("/", accountRegistration);
 
-app.get("/logedin", loginedPage);
+app.get("/user/:id", loginedPage);
 
 (async () => {
     try{
         await connect(url);
         app.listen(port, () => {
             console.log("server runs at http://localhost:3000");
-        })
+        });
     }
     catch(err){
         console.error(err);

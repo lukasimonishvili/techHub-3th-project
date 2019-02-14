@@ -12,7 +12,7 @@ let compSuccess = [];
 
 const mainPage = (req,res) => {
     if(req.cookies.save){
-        res.redirect("/logedin");
+        res.redirect(`/user/${req.cookies.user}`);
     }
     res.render("index", {
         userErrors: userErrors, 
@@ -49,17 +49,18 @@ const accountRegistration= (req,res) => {
                         userErrors.unshift("Please enter valid email");
                         return res.redirect("/");
                     }
-                    bcrypt.hashSync(req.body.password, saltRounds).then(async function(hash) {
-                        const userDetails = {
-                            name: req.body.name,
-                            lastname: req.body.lastname,
-                            mobile: req.body.mobile,
-                            email: req.body.email,
-                            password: req.body.password,
-                            userType: req.body.type
-                        };
-                        userDetails.password = hash;
-                        const newUser = await cruds.createUser(userDetails);
+                    bcrypt.hash(req.body.password, saltRounds)
+                        .then(async function(hash) {
+                            const userDetails = {
+                                name: req.body.name,
+                                lastname: req.body.lastname,
+                                mobile: req.body.mobile,
+                                email: req.body.email,
+                                password: req.body.password,
+                                userType: req.body.type
+                            };
+                            userDetails.password = hash;
+                            const newUser = await cruds.createUser(userDetails);
                     });
                     userErrors = []
                     persSuccess.unshift("Registration went Successfully");
@@ -103,19 +104,20 @@ const accountRegistration= (req,res) => {
                                     companyErrors.unshift("Check your company identification code");
                                     return res.redirect("/");
                                 }else{
-                                    bcrypt.hashSync(req.body.password, saltRounds).then(async function(hash) {
-                                        const userDetails = {
-                                            name: req.body.name,
-                                            lastname: req.body.lastname,
-                                            mobile: req.body.mobile,
-                                            email: req.body.email,
-                                            password: req.body.password,
-                                            userType: req.body.type,
-                                            companyName: req.body.company,
-                                            IC: req.body.idcode
-                                        };
-                                        userDetails.password = hash;
-                                        const newUser = await cruds.createUser(userDetails);
+                                    bcrypt.hash(req.body.password, saltRounds)
+                                        .then(async function(hash) {
+                                            const userDetails = {
+                                                name: req.body.name,
+                                                lastname: req.body.lastname,
+                                                mobile: req.body.mobile,
+                                                email: req.body.email,
+                                                password: req.body.password,
+                                                userType: req.body.type,
+                                                companyName: req.body.company,
+                                                IC: req.body.idcode
+                                            };
+                                            userDetails.password = hash;
+                                            const newUser = await cruds.createUser(userDetails);
                                     });
                                     companyErrors = [];
                                     compSuccess.unshift("Registration went Successfully");
@@ -144,14 +146,13 @@ const accountRegistration= (req,res) => {
                     loginErrors.push("Wrong password");
                     return res.redirect("/");
                 }
-                let storeCookieFile = JSON.stringify(data[0]);
                 if(req.body.remember){
+                    res.cookie("user", data[0]._id)
                     res.cookie("save", "true")
-                    res.cookie("user", storeCookieFile);
-                    return res.redirect("/logedin");
+                    return res.redirect(`/user/${data[0]._id}`);
                 }
-                res.cookie("user", storeCookieFile);
-                res.redirect("/logedin");
+                res.cookie("user", data[0]._id)
+                res.redirect(`/user/${data[0]._id}`);
             })
             .catch(err => console.error(err));
             break;
