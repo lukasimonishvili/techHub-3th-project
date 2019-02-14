@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-
 const UserSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -30,32 +29,13 @@ const UserSchema = new mongoose.Schema({
     },
     companyName: {
         type: String,
-        unique: true,
     },
     IC: {
         type: Number,
-        unique: true
     }
 }, { timestamps: true});
 
-UserSchema.methods.checkPassword = (password) => {
-    const passwordHash = this.password;
 
-    return new Promise((resolve, reject) => {
-        bcrypt.compare(password, passwordHash, (error, result) => {
-            if(error) {
-                reject(error);
-            }else{
-                resolve(result);
-            }
-        });
-    });
-}
-
-let findByemail = (info) => {
-    return mongoose.model('user', UserSchema).find({email: info}, (err, data) => {
-        console.log(data)
-    })
-}
 const User = mongoose.model('user', UserSchema);
-module.exports = {User, findByemail}
+
+module.exports = {User}

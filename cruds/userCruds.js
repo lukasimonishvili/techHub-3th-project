@@ -1,4 +1,4 @@
-const {User, findByemail} = require("../models/user");
+const {User} = require("../models/user");
 
 const getUserById = (id) => {
     return User.findById(id).exec();
@@ -13,8 +13,7 @@ const createUser = (user) => {
 }
 
 const getUserByEmail = (info) => {
-    return User.find((err, data) => {
-        console.log(info)
+    return User.find({emai: info},(err, data) => {
         return data;
     });
 }

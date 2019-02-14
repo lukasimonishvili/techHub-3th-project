@@ -3,6 +3,7 @@ html(lang="en")
     head
         meta(charset="UTF-8")
         title 3th-projec
+        link(rel="SHORTCUT ICON", href="./img/title.png")
         link(href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet")
         link(rel="stylesheet", href="./css/reset.css")
         link(rel="stylesheet", href="./css/index.css")
@@ -12,12 +13,14 @@ html(lang="en")
                 .navigation-item#singInNav Sing in
                 .navigation-item.navigation-border#physicalRegNav Registration for Physical person
                 .navigation-item#companyRegNav Registration for Company
-            form.sing-in-wrap#singInBox(style=locals.display[0])
+            form.sing-in-wrap#singInBox(method="POST" action="/" style=locals.display[0])
                 h2.form-heading Please sign in
+                if locals.loginErrors.length > 0
+                    p.loginError= locals.loginErrors[0]
                 .sing-in-inp-box
                     input.sing-in-inp(type="text" name="email" placeholder="Email address" required)
                     input.sing-in-inp(type="password" name="password" placeholder="Password" required)
-                    input(type="hidden" name="method" value="post")
+                    input(type="hidden" name="method" value="logIn")
                 label Remember me
                     input(type="checkbox" name="remember" vlue="true") 
                 button.sing-in-button Sing in
@@ -51,7 +54,7 @@ html(lang="en")
                     input.sing-in-inp(type="number" name="mobile" placeholder="mobile number" required)
                     input.sing-in-inp(type="text" name="email" placeholder="Email address" required)
                     input.sing-in-inp(type="text" name="company" placeholder="company name" required)
-                    input.sing-in-inp(type="text" name="idcode" placeholder="Identification code" required)
+                    input.sing-in-inp(type="number" name="idcode" placeholder="Identification code" required)
                     input.sing-in-inp(type="password" name="password" placeholder="Password" required)
                     input.sing-in-inp(type="password" name="repassword" placeholder="Confirm Password" required)
                     input(type="hidden" name="method" value="creg")

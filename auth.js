@@ -1,6 +1,5 @@
 const User = require('./models/user');
 const jwt = require('jsonwebtoken');
-const crud = require('./cruds/userCruds');
 
 const secret = 'mySecret';
 
@@ -42,7 +41,6 @@ const protect = async (req, res, next) => {
     if(!user) {
         return res.status(400).end();
     }
-
     req.user = user;
     next();
 }

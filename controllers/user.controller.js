@@ -1,18 +1,23 @@
 const cruds = require("../cruds/userCruds");
-const {User, findByemail} = require("../models/user");
+const {User} = require("../models/user");
 const bcrypt = require("bcrypt");
 const saltRounds = 15;
 
 let userErrors = [];
 let companyErrors = [];
-let display = ["display:flex;", "display:none;", "display: none"]
+let loginErrors = [];
+let display = ["display:flex;", "display:none;", "display: none"];
 let persSuccess = [];
 let compSuccess = [];
 
 const mainPage = (req,res) => {
+    if(req.cookies.user){
+        res.redirect("/logedin");
+    }
     res.render("index", {
         userErrors: userErrors, 
-        companyErrors: companyErrors, 
+        companyErrors: companyErrors,
+        loginErrors: loginErrors,
         display: display, 
         persSuccess: persSuccess, 
         compSuccess: compSuccess
@@ -32,7 +37,7 @@ const accountRegistration= (req,res) => {
                 userErrors.unshift("Passwords do not match each other");
                 return res.redirect("/");
             }
-            if(req.body.password.length < 6){
+            if(req.body.password.length < 4){
                 userErrors.unshift("Password should contain min. 6 symbols");
                 return res.redirect("/");
             }
@@ -44,7 +49,7 @@ const accountRegistration= (req,res) => {
                         userErrors.unshift("Please enter valid email");
                         return res.redirect("/");
                     }
-                    bcrypt.hash(req.body.password, saltRounds).then(async function(hash) {
+                    bcrypt.hashSync(req.body.password, saltRounds).then(async function(hash) {
                         const userDetails = {
                             name: req.body.name,
                             lastname: req.body.lastname,
@@ -98,7 +103,7 @@ const accountRegistration= (req,res) => {
                                     companyErrors.unshift("Check your company identification code");
                                     return res.redirect("/");
                                 }else{
-                                    bcrypt.hash(req.body.password, saltRounds).then(async function(hash) {
+                                    bcrypt.hashSync(req.body.password, saltRounds).then(async function(hash) {
                                         const userDetails = {
                                             name: req.body.name,
                                             lastname: req.body.lastname,
@@ -124,6 +129,30 @@ const accountRegistration= (req,res) => {
                     return res.redirect("/");
                 }
             }); 
+            break;
+        case "logIn":
+            display = ["display:flex;", "display:none;", "display: none"]
+            User.find({email: req.body.email})
+            .then(data => {
+                loginErrors = [];
+                if(data.length < 1){
+                    loginErrors.push("Wrong email address");
+                    return res.redirect("/");
+                }
+                let checked = bcrypt.compareSync(req.body.password, data[0].password);
+                if(!checked){
+                    loginErrors.push("Wrong password");
+                    return res.redirect("/");
+                }
+                if(req.body.remember){
+                    let storeCookieFile = JSON.stringify(data[0]);
+                    res.cookie("user", storeCookieFile);
+                    return res.redirect("/logedin");
+                }
+                res.clearCookie('user');
+                res.redirect("/logedin");
+            })
+            .catch(err => console.error(err));
             break;
     }
 }

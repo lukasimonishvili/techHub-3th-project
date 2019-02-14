@@ -75,6 +75,7 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    position: relative;
     height: 330px;
     width: 100%;
 }
@@ -102,6 +103,14 @@
     position: absolute;
     left: 150px;
     top: 30px;
+}
+
+.loginError{
+    color: red;
+    font-size: 12px;
+    position: absolute;
+    left: 150px;
+    top: 38px;
 }
 
 .success{
