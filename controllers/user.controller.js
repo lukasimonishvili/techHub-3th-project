@@ -11,7 +11,7 @@ let persSuccess = [];
 let compSuccess = [];
 
 const mainPage = (req,res) => {
-    if(req.cookies.user){
+    if(req.cookies.save){
         res.redirect("/logedin");
     }
     res.render("index", {
@@ -144,12 +144,13 @@ const accountRegistration= (req,res) => {
                     loginErrors.push("Wrong password");
                     return res.redirect("/");
                 }
+                let storeCookieFile = JSON.stringify(data[0]);
                 if(req.body.remember){
-                    let storeCookieFile = JSON.stringify(data[0]);
+                    res.cookie("save", "true")
                     res.cookie("user", storeCookieFile);
                     return res.redirect("/logedin");
                 }
-                res.clearCookie('user');
+                res.cookie("user", storeCookieFile);
                 res.redirect("/logedin");
             })
             .catch(err => console.error(err));

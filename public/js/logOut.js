@@ -6,7 +6,8 @@ btn.onclick = () => {
         d.setTime(d.getTime() + (exMins*60*1000));
         var expires = "expires="+d.toUTCString();  
         document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-        window.location.replace("/");
     }
     setCookie('user','',0);
+    setCookie('save','',0);
+    window.location.replace("/");
 }
