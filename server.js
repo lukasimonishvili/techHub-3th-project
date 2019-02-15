@@ -1,7 +1,7 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const {mainPage, accountRegistration} = require("./controllers/user.controller");
-const {loginedPage} = require("./controllers/product.controllers");
+const {loginedPage, manageProducts} = require("./controllers/product.controllers");
 const app = express();
 const port = 3000;
 const morgan = require('morgan');
@@ -22,10 +22,12 @@ app.post("/", accountRegistration);
 
 app.get("/user/:id", loginedPage);
 
+app.get("/user/:id/MyProducts", manageProducts);
+
 (async () => {
     try{
         await connect(url);
-        app.listen(port, () => {
+            app.listen(port, () => {
             console.log("server runs at http://localhost:3000");
         });
     }

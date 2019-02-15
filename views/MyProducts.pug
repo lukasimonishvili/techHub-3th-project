@@ -2,17 +2,16 @@
 html(lang="en")
     head
         meta(charset="UTF-8")
-        link(rel="SHORTCUT ICON" href="../img/title.png")
         title your shop
-        link(rel="stylesheet", href="../css/reset.css")
-        link(rel="stylesheet" href="../css/logedIn.css")
+        link(rel="SHORTCUT ICON", href="../../img/title.png")
         link(href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet")
-        link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous")
+        link(rel="stylesheet", href="../../css/reset.css")
+        link(rel="stylesheet", href="../../css/add.css")
     body
         header.header.fixed
             .container.flex-space-around
                 a(href="/user/" + locals.logedIn)
-                    img.header__logo(src="../img/title.png", alt="")
+                    img.header__logo(src="../../img/title.png", alt="")
                 form.flex-space-btw.search__box
                     input(type="hidden" name="method" value="search")
                     input.search-inp(type="text" name="search" placeholder="...Search" required)
@@ -24,4 +23,9 @@ html(lang="en")
                 else
                     a.user-name= locals.user.name + " " + locals.user.lastname
                 button#logOut.logout Log Out
-        script(src="../js/logOut.js")
+        main.product-box
+            .container
+                form.add-box
+
+
+        script(src="../../js/logOut.js")
