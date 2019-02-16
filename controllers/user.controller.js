@@ -151,7 +151,7 @@ const accountRegistration= (req,res) => {
                     res.cookie("save", "true")
                     return res.redirect(`/user/${data[0]._id}`);
                 }
-                res.cookie("user", data[0]._id)
+                res.cookie("user", data[0]._id);
                 res.redirect(`/user/${data[0]._id}`);
             })
             .catch(err => console.error(err));

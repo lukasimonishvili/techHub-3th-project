@@ -25,7 +25,15 @@ html(lang="en")
                 button#logOut.logout Log Out
         main.product-box
             .container
-                form.add-box
-
-
+                form(method="POST" action="/user/" + locals.logedIn + "/MyProducts" enctype="multipart/form-data").add-box
+                    input(type="text" name="name" placeholder="product name" required)
+                    input(type="number" name="price" placeholder="product price" required)
+                    input(type="number" name="amount" placeholder="amount of product" required)
+                    input(type="hidden" name="author" value=locals.logedIn)
+                    input(type="hidden" name="contact" value=locals.user.mobile)
+                    input(type="file" name="picture" required)
+                    textarea(name="description", cols="30", rows="10" placeholder="Enter description about new product" required)
+                    button add
+                each prod in locals.myProductes
+                    img(src="../../uploads/" + prod.picture, alt="")
         script(src="../../js/logOut.js")

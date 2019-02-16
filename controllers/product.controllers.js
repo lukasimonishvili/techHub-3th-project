@@ -18,9 +18,29 @@ const manageProducts = (req,res) => {
         if(err){
             return console.error(err);
         }
-        res.render("MyProducts", {user: data[0], logedIn: req.cookies.user});
+        Product.find({author: req.cookies.user}, async (erro, productList) => {
+            if(err){
+                return console.error(erro);
+            }
+            res.render("MyProducts", {user: data[0], logedIn: req.cookies.user, myProductes: productList});
+        })
     });
 
 }
 
-module.exports = {loginedPage, manageProducts}
+
+const addNewProduct = async (req,res) => {
+    console.log(req.file);
+    console.log({...req.body});
+    await Product.create({
+        name: req.body.name,
+        price: req.body.price + "$",
+        amount: req.body.amount,
+        author: req.body.author,
+        contact: req.body.contact,
+        picture: req.file.filename,
+        description: req.body.description
+    });
+    res.redirect(`/user/${req.cookies.user}/MyProducts`);
+}
+module.exports = {loginedPage, manageProducts, addNewProduct}
