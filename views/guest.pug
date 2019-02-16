@@ -2,8 +2,37 @@
 html(lang="en")
     head
         meta(charset="UTF-8")
+        link(rel="SHORTCUT ICON" href="../img/title.png")
         title your shop
-        link(rel="SHORTCUT ICON", href="../img/title.png")
+        link(rel="stylesheet", href="../css/reset.css")
+        link(rel="stylesheet" href="../css/logedIn.css")
+        link(href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet")
+        link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous")
     body
-        h1= locals.user.name + " " + locals.user.lastname
-        a(href="/") Home
+        header.header.fixed
+            .container.flex-space-around
+                a(href="/user/" + locals.logedIn)
+                    img.header__logo(src="../img/title.png", alt="")
+                form.flex-space-btw.search__box
+                    input(type="hidden" name="method" value="search")
+                    input.search-inp(type="text" name="search" placeholder="...Search" required)
+                    button
+                        i.fas.fa-search.search-btn
+                a.nav-item(href="/user/" + locals.logedIn + "/MyProducts") My products
+                if locals.user.userType == "company"
+                    a.user-name= locals.user.name + " " + locals.user.lastname + " (" + locals.user.companyName + ")"
+                else
+                    a.user-name= locals.user.name + " " + locals.user.lastname
+                button#logOut.logout Log Out
+        .posts
+            .container.flex-column-center
+                each draw in locals.guestProd
+                    .post
+                        img(src="../../uploads/" + draw.picture, alt="")
+                        h1= draw.name
+                        h2= "price: " + draw.price
+                        a(href="#")= "owner: " + draw.owner
+                        h4= "contact: " + draw.contact
+                        h5= "amount: " + draw.amount
+                        p= draw.description
+        script(src="../js/logOut.js")

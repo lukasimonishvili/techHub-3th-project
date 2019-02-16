@@ -103,6 +103,70 @@
 	background-color: transparent;
 }
 
+.post-box{
+    width: calc(100% - 300px);
+}
+
+.post{
+    width: 400px;
+    height: 360px;
+    border: 1px solid black;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.post > img {
+    width: 80%;
+    position: absolute;
+    height: 240px;
+    left: 10%;
+    top: 26px;
+}
+
+.post > h1 {
+    font-size: 18px;
+    position: absolute;
+    left: 40px;
+    top: 4px;
+}
+
+.post > h2{
+    position: absolute;
+    font-size: 15px;
+    right: 40px;
+    top: 4px;
+    color: green;
+}
+
+.post > h3{
+    position: absolute;
+    font-size: 15px;
+    left: 40px;
+    top: 272px;
+}
+
+.post > h4{
+    position: absolute;
+    font-size: 15px;
+    left: 40px;
+    top: 291px;
+}
+
+.post > h5{
+    position: absolute;
+    font-size: 15px;
+    left: 40px;
+    top: 308px;
+}
+
+.post > p {
+    position: absolute;
+    left: 40px;
+    font-size: 13px;
+    bottom: 5px;
+    width: 80%;
+}
+
 ::-webkit-scrollbar
 {
 	width: 8px;

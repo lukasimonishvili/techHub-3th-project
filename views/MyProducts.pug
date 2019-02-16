@@ -24,16 +24,28 @@ html(lang="en")
                     a.user-name= locals.user.name + " " + locals.user.lastname
                 button#logOut.logout Log Out
         main.product-box
-            .container
+            .container.flex
                 form(method="POST" action="/user/" + locals.logedIn + "/MyProducts" enctype="multipart/form-data").add-box
                     input(type="text" name="name" placeholder="product name" required)
                     input(type="number" name="price" placeholder="product price" required)
                     input(type="number" name="amount" placeholder="amount of product" required)
                     input(type="hidden" name="author" value=locals.logedIn)
+                    if locals.user.userType == "company"
+                        input(type="hidden" name="owner" value=locals.user.name + " " + locals.user.lastname + " (" + locals.user.companyName + ")") 
+                    else
+                        input(type="hidden" name="owner" value=locals.user.name + " " + locals.user.lastname) 
                     input(type="hidden" name="contact" value=locals.user.mobile)
                     input(type="file" name="picture" required)
                     textarea(name="description", cols="30", rows="10" placeholder="Enter description about new product" required)
                     button add
-                each prod in locals.myProductes
-                    img(src="../../uploads/" + prod.picture, alt="")
+                .post-box.flex-column-center
+                    each draw in locals.myProductes
+                        .post
+                            img(src="../../uploads/" + draw.picture, alt="")
+                            h1= draw.name
+                            h2= "price: " + draw.price
+                            h3= "owner: " + draw.owner
+                            h4= "contact: " + draw.contact
+                            h5= "amount: " + draw.amount
+                            p= draw.description
         script(src="../../js/logOut.js")

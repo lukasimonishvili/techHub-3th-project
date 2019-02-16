@@ -24,4 +24,15 @@ html(lang="en")
                 else
                     a.user-name= locals.user.name + " " + locals.user.lastname
                 button#logOut.logout Log Out
+        .posts
+            .container.flex-column-center
+                each draw in locals.products
+                    .post
+                        img(src="../../uploads/" + draw.picture, alt="")
+                        h1= draw.name
+                        h2= "price: " + draw.price
+                        a(href="/user/" + draw.author target="_blank")= "owner: " + draw.owner
+                        h4= "contact: " + draw.contact
+                        h5= "amount: " + draw.amount
+                        p= draw.description
         script(src="../js/logOut.js")
